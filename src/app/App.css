@@ -2,10 +2,15 @@
 
 @custom-variant aria-current (&[aria-current="page"]);
 
+@layer utilities {
+  .focus {
+    @apply focus:outline-2 focus:outline-offset-2 focus:outline-lime-600;
+  }
+}
 @layer components {
-  input,
+  /* input,
   textarea,
   select {
     @apply bg-white border border-gray-300 rounded py-1 px-2 focus:outline-2 focus:outline-offset-2 focus:outline-lime-600;
-  }
+  } */
 }

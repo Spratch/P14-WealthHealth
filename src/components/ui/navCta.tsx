@@ -11,7 +11,7 @@ export default function NavCta({ to, text, primary = false, Icon }: Props) {
   return (
     <NavLink
       to={to}
-      className={`aria-current:hidden px-4 py-2 border border-lime-600 transition-colors rounded-full flex items-center gap-2 focus:outline-2 focus:outline-offset-2 focus:outline-lime-600
+      className={`aria-current:hidden px-4 py-2 border border-lime-600 transition-colors rounded-full flex items-center gap-2 focus
         ${
           primary
             ? "bg-lime-600 hover:bg-lime-700 text-white"
