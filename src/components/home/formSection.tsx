@@ -2,6 +2,7 @@ import { useState } from "react";
 import FormField from "../ui/formField";
 import FormSelect from "../ui/formSelect";
 import { usStates } from "../../datas/us-states";
+import { companyDepartements } from "../../datas/company-departements";
 
 export default function FormSection() {
   const [firstName, setFirstName] = useState("");
@@ -114,13 +115,7 @@ export default function FormSection() {
         <FormSelect
           id="department"
           label="Department"
-          options={[
-            "Sales",
-            "Marketing",
-            "Engineering",
-            "Human Resources",
-            "Legal"
-          ]}
+          options={companyDepartements}
           value={department}
           onChange={(e) => setDepartment(e.target.value)}
         />
