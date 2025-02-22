@@ -1,6 +1,6 @@
 import { AddUserIcon, UsersIcon } from "@sanity/icons";
 import { Link } from "react-router";
-import NavCta from "../ui/navCta";
+import Cta from "../ui/cta";
 
 export default function Header() {
   return (
@@ -13,12 +13,12 @@ export default function Header() {
           HRnet
         </Link>
 
-        <NavCta
+        <Cta
           to="/employees"
           text="View current employees"
           Icon={UsersIcon}
         />
-        <NavCta
+        <Cta
           to="/"
           text="New employee"
           primary

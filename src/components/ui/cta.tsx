@@ -1,13 +1,13 @@
 import { NavLink } from "react-router";
 
-type Props = {
+export type CtaProps = {
   to: string;
   text: string;
   primary?: boolean;
   Icon?: React.ElementType;
 };
 
-export default function NavCta({ to, text, primary = false, Icon }: Props) {
+export default function Cta({ to, text, primary = false, Icon }: CtaProps) {
   return (
     <NavLink
       to={to}

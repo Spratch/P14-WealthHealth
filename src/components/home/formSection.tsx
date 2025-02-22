@@ -3,17 +3,19 @@ import FormField from "../ui/formField";
 import FormSelect from "../ui/formSelect";
 import { usStates } from "../../datas/us-states";
 import { companyDepartements } from "../../datas/company-departements";
+import { useDispatch } from "react-redux";
 
 export default function FormSection() {
+  const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [startDate, setStartDate] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  const [state, setState] = useState(usStates[0].name);
   const [zipCode, setZipCode] = useState("");
-  const [department, setDepartment] = useState("");
+  const [department, setDepartment] = useState(companyDepartements[0].name);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -32,7 +34,11 @@ export default function FormSection() {
       department
     };
 
-    console.log(employee);
+    try {
+      dispatch({ type: "employees/addEmployee", payload: employee });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
