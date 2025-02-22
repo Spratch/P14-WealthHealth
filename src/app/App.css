@@ -4,13 +4,12 @@
 
 @layer utilities {
   .focus {
-    @apply focus:outline-2 focus:outline-offset-2 focus:outline-lime-600;
+    @apply focus:outline-2 focus:outline-offset-2 focus:outline-lime-600 dark:focus:outline-lime-400;
   }
 }
-@layer components {
-  /* input,
-  textarea,
-  select {
-    @apply bg-white border border-gray-300 rounded py-1 px-2 focus:outline-2 focus:outline-offset-2 focus:outline-lime-600;
-  } */
+
+:root,
+html,
+body {
+  overscroll-behavior: none;
 }

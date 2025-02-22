@@ -16,7 +16,7 @@ export default function FormField({ id, label, type, value, onChange }: Props) {
         name={id}
         value={value}
         onChange={onChange}
-        className="bg-white border border-neutral-200 focus:border-neutral-300 p-2 rounded-md focus"
+        className="bg-white dark:bg-neutral-800 border border-neutral-200 focus:border-neutral-300 dark:border-neutral-700 dark:focus:border-neutral-500 p-2 rounded-md focus"
       />
     </div>
   );
