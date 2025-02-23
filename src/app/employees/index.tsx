@@ -3,9 +3,11 @@ import Hero from "../../components/layout/hero";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import EmptyList from "../../components/employees/empty";
+import dateParser from "../../utils/dateParser";
 
 export default function Employees() {
   const employees = useSelector((state: RootState) => state.employees);
+
   return (
     <>
       <Hero
@@ -44,8 +46,8 @@ export default function Employees() {
             >
               <p className="">{employee.firstName}</p>
               <p className="">{employee.lastName}</p>
-              <p className="">{employee.dateOfBirth}</p>
-              <p className="">{employee.startDate}</p>
+              <p className="">{dateParser(employee.dateOfBirth)}</p>
+              <p className="">{dateParser(employee.startDate)}</p>
               <p className="">{employee.address.street}</p>
               <p className="">{employee.address.city}</p>
               <p className="">{employee.address.state}</p>

@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { DateValue } from "react-aria-components";
 
 export type Employee = {
   id: string;
   firstName: string;
   lastName: string;
-  dateOfBirth: string;
-  startDate: string;
+  dateOfBirth: DateValue;
+  startDate: DateValue;
   address: {
     street: string;
     city: string;

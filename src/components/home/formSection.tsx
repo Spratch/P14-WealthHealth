@@ -4,13 +4,15 @@ import FormSelect from "../ui/formSelect";
 import { usStates } from "../../datas/us-states";
 import { companyDepartements } from "../../datas/company-departements";
 import { useDispatch } from "react-redux";
+import FormDatePicker from "../ui/formDatePicker";
+import { DateValue } from "react-aria-components";
 
 export default function FormSection() {
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [startDate, setStartDate] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState<DateValue | null>();
+  const [startDate, setStartDate] = useState<DateValue | null>();
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState(usStates[0].name);
@@ -65,19 +67,15 @@ export default function FormSection() {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
-          <FormField
-            id="date-of-birth"
+          <FormDatePicker
             label="Date of Birth"
-            type="text"
             value={dateOfBirth}
-            onChange={(e) => setDateOfBirth(e.target.value)}
+            onChange={setDateOfBirth}
           />
-          <FormField
-            id="start-date"
+          <FormDatePicker
             label="Start Date"
-            type="text"
             value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            onChange={setStartDate}
           />
         </div>
 

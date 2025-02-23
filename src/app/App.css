@@ -1,10 +1,18 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-react-aria-components";
+
 @custom-variant aria-current (&[aria-current="page"]);
 
 @layer utilities {
   .focus {
     @apply focus:outline-2 focus:outline-offset-2 focus:outline-lime-600 dark:focus:outline-lime-400;
+  }
+  .focus-visible {
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 dark:focus-visible:outline-lime-400;
+  }
+  .focus-visible-ring {
+    @apply focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-lime-600 dark:focus-visible:ring-lime-400;
   }
 }
 
