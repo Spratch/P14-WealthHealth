@@ -5,7 +5,7 @@ import { usStates } from "../../datas/us-states";
 import { companyDepartements } from "../../datas/company-departements";
 import { useDispatch } from "react-redux";
 import FormDatePicker from "../ui/formDatePicker";
-import { DateValue } from "react-aria-components";
+import { DateValue, Key } from "react-aria-components";
 
 export default function FormSection() {
   const dispatch = useDispatch();
@@ -15,9 +15,9 @@ export default function FormSection() {
   const [startDate, setStartDate] = useState<DateValue | null>();
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
-  const [state, setState] = useState(usStates[0].name);
+  const [state, setState] = useState<Key | null>(null);
   const [zipCode, setZipCode] = useState("");
-  const [department, setDepartment] = useState(companyDepartements[0].name);
+  const [department, setDepartment] = useState<Key | null>(null);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -103,8 +103,7 @@ export default function FormSection() {
             id="state"
             label="State"
             options={usStates}
-            value={state}
-            onChange={(e) => setState(e.target.value)}
+            onSelectionChange={setState}
           />
 
           <FormField
@@ -120,8 +119,7 @@ export default function FormSection() {
           id="department"
           label="Department"
           options={companyDepartements}
-          value={department}
-          onChange={(e) => setDepartment(e.target.value)}
+          onSelectionChange={setDepartment}
         />
       </form>
 

@@ -28,7 +28,7 @@ interface FormDatePickerProps<T extends DateValue> extends DatePickerProps<T> {
 
 export default function FormDatePicker<T extends DateValue>({
   label,
-  errorMessage,
+  errorMessage = "Please select a date",
   ...props
 }: FormDatePickerProps<T>) {
   return (
