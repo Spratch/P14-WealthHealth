@@ -48,7 +48,7 @@ export default function FormSelect<T extends object>({
               <ListBoxItem
                 key={option.id}
                 id={option.id}
-                className="pl-3 pr-5 py-1 hover:bg-neutral-100 dark:hover:bg-neutral-700 selected:bg-lime-200 dark:selected:bg-lime-600"
+                className="pl-3 pr-5 py-1 hover:bg-neutral-100 dark:hover:bg-neutral-700 selected:bg-lime-200 dark:selected:bg-lime-700"
               >
                 {option.name}
               </ListBoxItem>

@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import EmptyList from "../../components/employees/empty";
 import dateParser from "../../utils/dateParser";
+import { usStates } from "../../datas/us-states";
+import { companyDepartements } from "../../datas/company-departements";
 
 export default function Employees() {
   const employees = useSelector((state: RootState) => state.employees);
@@ -39,22 +41,30 @@ export default function Employees() {
             <p>Zip code</p>
             <p>Department</p>
           </div>
-          {employees.employees.map((employee) => (
-            <div
-              key={employee.id}
-              className="grid grid-cols-9 border-b border-neutral-200 dark:border-neutral-700 w-full p-4 odd:bg-neutral-100 dark:odd:bg-neutral-900"
-            >
-              <p className="">{employee.firstName}</p>
-              <p className="">{employee.lastName}</p>
-              <p className="">{dateParser(employee.dateOfBirth)}</p>
-              <p className="">{dateParser(employee.startDate)}</p>
-              <p className="">{employee.address.street}</p>
-              <p className="">{employee.address.city}</p>
-              <p className="">{employee.address.state}</p>
-              <p className="">{employee.address.zipCode}</p>
-              <p className="">{employee.department}</p>
-            </div>
-          ))}
+          {employees.employees.map((employee) => {
+            const employeeState = usStates.find(
+              (state) => state.id === employee.address.state
+            );
+            const employeeDepartment = companyDepartements.find(
+              (department) => department.id === employee.department
+            );
+            return (
+              <div
+                key={employee.id}
+                className="grid grid-cols-9 border-b border-neutral-200 dark:border-neutral-700 w-full p-4 odd:bg-neutral-100 dark:odd:bg-neutral-900"
+              >
+                <p className="">{employee.firstName}</p>
+                <p className="">{employee.lastName}</p>
+                <p className="">{dateParser(employee.dateOfBirth)}</p>
+                <p className="">{dateParser(employee.startDate)}</p>
+                <p className="">{employee.address.street}</p>
+                <p className="">{employee.address.city}</p>
+                <p className="">{employeeState?.name}</p>
+                <p className="">{employee.address.zipCode}</p>
+                <p className="">{employeeDepartment?.name}</p>
+              </div>
+            );
+          })}
         </section>
       )}
     </>
