@@ -6,13 +6,15 @@ import { companyDepartements } from "../../datas/company-departements";
 import { useDispatch } from "react-redux";
 import FormDatePicker from "../ui/formDatePicker";
 import { DateValue, Key } from "react-aria-components";
+import dateParser from "../../utils/dateParser";
+import { v4 as uuidv4 } from "uuid";
 
 export default function FormSection() {
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState<DateValue | null>();
-  const [startDate, setStartDate] = useState<DateValue | null>();
+  const [dateOfBirth, setDateOfBirth] = useState<DateValue | null>(null);
+  const [startDate, setStartDate] = useState<DateValue | null>(null);
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState<Key | null>(null);
@@ -23,16 +25,15 @@ export default function FormSection() {
     e.preventDefault();
 
     const employee = {
+      id: uuidv4(),
       firstName,
       lastName,
-      dateOfBirth,
-      startDate,
-      address: {
-        street,
-        city,
-        state,
-        zipCode
-      },
+      dateOfBirth: dateParser(dateOfBirth),
+      startDate: dateParser(startDate),
+      street,
+      city,
+      state,
+      zipCode: zipCode.toString(),
       department
     };
 

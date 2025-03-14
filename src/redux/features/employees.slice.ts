@@ -1,22 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { DateValue } from "react-aria-components";
 
 export type Employee = {
   id: string;
   firstName: string;
   lastName: string;
-  dateOfBirth: DateValue;
-  startDate: DateValue;
-  address: {
-    street: string;
-    city: string;
-    state: string;
-    zipCode: number;
-  };
+  dateOfBirth: string;
+  startDate: string;
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
   department: string;
 };
 
-interface EmployeesState {
+export interface EmployeesState {
   status: "idle" | "loading" | "succeeded" | "failed";
   message: string;
   employees: Employee[];
