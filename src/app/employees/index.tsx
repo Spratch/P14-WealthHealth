@@ -1,18 +1,24 @@
 import { AddUserIcon, UsersIcon } from "@sanity/icons";
 import Hero from "../../components/layout/hero";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { useDispatch } from "react-redux";
 import EmptyList from "../../components/employees/empty";
 import EmployeesTable from "../../components/employees/table";
 import employees from "../../datas/MOCK_DATA.json";
 import FormSelect from "../../components/ui/formSelect";
-import { useState } from "react";
 import { Key } from "react-aria-components";
+import useTablePagination from "../../hooks/useTablePagination";
+import { setPageSize } from "../../redux/features/pagination.slice";
 
 export default function Employees() {
-  const employeesState = useSelector((state: RootState) => state.employees);
+  const dispatch = useDispatch();
+  const { totalItems, pageSize } = useTablePagination();
   const lengthOptions = ["10", "25", "50", "100"];
-  const [tableLength, setTableLength] = useState<Key>(lengthOptions[0]);
+
+  const handlePageSizeChange = (value: Key | null) => {
+    if (value !== null) {
+      dispatch(setPageSize(parseInt(value.toString(), 10)));
+    }
+  };
 
   return (
     <>
@@ -35,15 +41,12 @@ export default function Employees() {
       ) : (
         <section className="flex-1 max-h-full min-h-0 flex flex-col items-start w-full max-w-7xl mx-auto py-5 gap-5">
           <FormSelect
-            label="Entries per page"
+            label={`${pageSize} / ${totalItems} employees`}
             options={lengthOptions}
-            defaultInputValue={tableLength as string}
-            onSelectionChange={(key) => key !== null && setTableLength(key)}
+            defaultInputValue={pageSize.toString()}
+            onSelectionChange={handlePageSizeChange}
           />
-          <EmployeesTable
-            employeesState={employeesState}
-            tableLength={parseInt(tableLength as string, 10)}
-          />
+          <EmployeesTable />
         </section>
       )}
     </>

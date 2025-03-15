@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { employeesReducer } from "./features/employees.slice";
+import { paginationReducer } from "./features/pagination.slice";
 
 function loadFromLocalStorage() {
   try {
@@ -23,7 +24,8 @@ function saveToLocalStorage(state: RootState) {
 
 const store = configureStore({
   reducer: {
-    employees: employeesReducer
+    employees: employeesReducer,
+    pagination: paginationReducer
   },
   preloadedState: {
     employees: loadFromLocalStorage()
