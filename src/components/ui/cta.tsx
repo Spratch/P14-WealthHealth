@@ -15,7 +15,7 @@ export default function Cta({ to, text, primary = false, Icon }: CtaProps) {
         ${
           primary
             ? "bg-lime-600 hover:bg-lime-700 dark:bg-lime-400 dark:hover:bg-lime-300 text-lime-50 dark:text-lime-950"
-            : "bg-neutral-100 hover:bg-lime-200 dark:bg-neutral-900 dark:hover:bg-lime-900 text-lime-600 dark:text-lime-400"
+            : "hover:bg-lime-100 dark:bg-neutral-900 dark:hover:bg-lime-900 text-lime-600 dark:text-lime-400"
         }
         `}
     >

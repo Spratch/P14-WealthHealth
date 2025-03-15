@@ -1,54 +1,33 @@
-import { useState } from "react";
 import FormField from "../ui/formField";
 import FormSelect from "../ui/formSelect";
 import { usStates } from "../../datas/us-states";
 import { companyDepartements } from "../../datas/company-departements";
-import { useDispatch } from "react-redux";
 import FormDatePicker from "../ui/formDatePicker";
-import { DateValue, Key } from "react-aria-components";
-import dateParser from "../../utils/dateParser";
-import { v4 as uuidv4 } from "uuid";
+import { Button, DialogTrigger, Form } from "react-aria-components";
+import { SuccessModal } from "./successModal";
+import { useEmployeeForm } from "../../hooks/useEmployeeForm";
 
 export default function FormSection() {
-  const dispatch = useDispatch();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState<DateValue | null>(null);
-  const [startDate, setStartDate] = useState<DateValue | null>(null);
-  const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState<Key | null>(null);
-  const [zipCode, setZipCode] = useState("");
-  const [department, setDepartment] = useState<Key | null>(null);
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-
-    const employee = {
-      id: uuidv4(),
-      firstName,
-      lastName,
-      dateOfBirth: dateParser(dateOfBirth),
-      startDate: dateParser(startDate),
-      street,
-      city,
-      state,
-      zipCode: zipCode.toString(),
-      department
-    };
-
-    try {
-      dispatch({ type: "employees/addEmployee", payload: employee });
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const { formValues, formSetters, handleSubmit } = useEmployeeForm();
+  const { firstName, lastName, dateOfBirth, startDate, street, city, zipCode } =
+    formValues;
+  const {
+    setFirstName,
+    setLastName,
+    setDateOfBirth,
+    setStartDate,
+    setStreet,
+    setCity,
+    setState,
+    setZipCode,
+    setDepartment
+  } = formSetters;
 
   return (
     <section className="flex flex-col items-end gap-4 w-full max-w-7xl mx-auto py-5 md:py-12">
       {/* Form */}
-      <form
-        action="#"
+      <Form
+        onSubmit={handleSubmit}
         id="create-employee"
         className="w-full flex flex-col md:grid grid-cols-3 gap-4 bg-neutral-100 dark:bg-neutral-900 p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200"
       >
@@ -116,23 +95,25 @@ export default function FormSection() {
           />
         </fieldset>
 
-        <FormSelect
-          id="department"
-          label="Department"
-          options={companyDepartements}
-          onSelectionChange={setDepartment}
-        />
-      </form>
-
-      {/* Submit */}
-      <button
-        type="submit"
-        className="bg-lime-600 hover:bg-lime-700 dark:bg-lime-400 dark:hover:bg-lime-300 transition-colors text-white dark:text-lime-950 rounded-lg px-4 py-2 cursor-pointer focus"
-        form="create-employee"
-        onClick={handleSubmit}
-      >
-        Create Employee
-      </button>
+        <div className="flex flex-col justify-between">
+          <FormSelect
+            id="department"
+            label="Department"
+            options={companyDepartements}
+            onSelectionChange={setDepartment}
+          />
+          {/* Submit */}
+          <DialogTrigger>
+            <Button
+              type="submit"
+              className="ml-auto w-fit bg-lime-600 hover:bg-lime-700 dark:bg-lime-400 dark:hover:bg-lime-300 transition-colors text-white dark:text-lime-950 rounded-lg px-4 py-2 cursor-pointer focus"
+            >
+              Create Employee
+            </Button>
+            <SuccessModal />
+          </DialogTrigger>
+        </div>
+      </Form>
     </section>
   );
 }
