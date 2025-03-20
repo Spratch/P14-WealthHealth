@@ -5,15 +5,17 @@ import { Employee } from "../redux/features/employees.slice";
 import employees from "../datas/MOCK_DATA.json";
 import {
   setCurrentPage,
-  setPageSize
+  setPageSize,
+  setSortOrder
 } from "../redux/features/pagination.slice";
+import { SortDescriptor } from "react-aria-components";
 
 export default function useTablePagination() {
   const dispatch = useDispatch();
   const employeesState = useSelector((state: RootState) => state.employees);
   const pagination = useSelector((state: RootState) => state.pagination);
 
-  const { currentPage, pageSize } = pagination;
+  const { currentPage, pageSize, sortColumn, sortDirection } = pagination;
 
   // Combine mocked data with employees from the state
   const processedData = useMemo(() => {
@@ -22,8 +24,20 @@ export default function useTablePagination() {
       ...employees
     ];
 
-    return employeesList;
-  }, [employeesState.employees]);
+    // Sort data
+    const sortedList = [...employeesList].sort((a, b) => {
+      const first = a[sortColumn as keyof Employee];
+      const second = b[sortColumn as keyof Employee];
+
+      if (typeof first === "string" && typeof second === "string") {
+        const result = first.localeCompare(second);
+        return sortDirection === "ascending" ? result : -result;
+      }
+      return 0;
+    });
+
+    return sortedList;
+  }, [employeesState.employees, sortColumn, sortDirection]);
 
   // Get paginated data
   const paginatedData = useMemo(() => {
@@ -45,6 +59,17 @@ export default function useTablePagination() {
     dispatch(setPageSize(size));
   };
 
+  const handleSortChange = (descriptor: SortDescriptor) => {
+    if (descriptor.column) {
+      dispatch(
+        setSortOrder({
+          column: descriptor.column,
+          direction: descriptor.direction
+        })
+      );
+    }
+  };
+
   return {
     // Data
     currentPageData: paginatedData,
@@ -60,6 +85,13 @@ export default function useTablePagination() {
     goToPage,
     nextPage: () => goToPage(currentPage + 1),
     prevPage: () => goToPage(currentPage - 1),
-    changePageSize
+    changePageSize,
+
+    // Sorting
+    sortDescriptor: {
+      column: sortColumn,
+      direction: sortDirection
+    },
+    handleSortChange
   };
 }

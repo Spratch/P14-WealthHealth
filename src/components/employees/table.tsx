@@ -9,40 +9,23 @@ import {
   ResizableTableContainer,
   Row,
   RowProps,
-  SortDescriptor,
   Table,
   TableBody,
   TableHeader
 } from "react-aria-components";
-import { useState } from "react";
 import { ArrowUpIcon } from "@sanity/icons";
 import useTablePagination from "../../hooks/useTablePagination";
 import Pagination from "./pagination";
 
 export default function EmployeesTable() {
-  // Add employees from the state to mocked data
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: "firstName",
-    direction: "ascending"
-  });
-  //   const sortedItems = useMemo(() => {
-  //     const employeesList: Employee[] = [
-  //       ...employeesState.employees,
-  //       ...employees
-  //     ];
-  //     return employeesList.sort((a, b) => {
-  //       const first = a[sortDescriptor.column as keyof Employee];
-  //       const second = b[sortDescriptor.column as keyof Employee];
-  //       let comparison = first.localeCompare(second);
-  //       if (sortDescriptor.direction === "descending") {
-  //         comparison *= -1;
-  //       }
-  //       return comparison;
-  //     });
-  //   }, [sortDescriptor, employeesState.employees]);
-
-  const { currentPageData, currentPage, totalPages, goToPage } =
-    useTablePagination();
+  const {
+    currentPageData,
+    currentPage,
+    totalPages,
+    goToPage,
+    sortDescriptor,
+    handleSortChange
+  } = useTablePagination();
 
   const columnsTitles = [
     { id: "firstName", title: "First Name" },
@@ -62,7 +45,7 @@ export default function EmployeesTable() {
         <Table
           aria-label="Employees table"
           sortDescriptor={sortDescriptor}
-          onSortChange={setSortDescriptor}
+          onSortChange={handleSortChange}
           className="border-separate border-spacing-0"
         >
           <TableHeader>
