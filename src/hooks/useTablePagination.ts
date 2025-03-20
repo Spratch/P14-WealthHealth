@@ -15,7 +15,8 @@ export default function useTablePagination() {
   const employeesState = useSelector((state: RootState) => state.employees);
   const pagination = useSelector((state: RootState) => state.pagination);
 
-  const { currentPage, pageSize, sortColumn, sortDirection } = pagination;
+  const { currentPage, pageSize, sortColumn, sortDirection, searchTerm } =
+    pagination;
 
   // Combine mocked data with employees from the state
   const processedData = useMemo(() => {
@@ -24,8 +25,22 @@ export default function useTablePagination() {
       ...employees
     ];
 
+    // Filter data
+    let filteredList = employeesList;
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      filteredList = employeesList.filter((employee) => {
+        return Object.values(employee).some((value) => {
+          if (typeof value === "string") {
+            return value.toLowerCase().includes(term);
+          }
+          return false;
+        });
+      });
+    }
+
     // Sort data
-    const sortedList = [...employeesList].sort((a, b) => {
+    const sortedList = [...filteredList].sort((a, b) => {
       const first = a[sortColumn as keyof Employee];
       const second = b[sortColumn as keyof Employee];
 
@@ -37,7 +52,7 @@ export default function useTablePagination() {
     });
 
     return sortedList;
-  }, [employeesState.employees, sortColumn, sortDirection]);
+  }, [employeesState.employees, sortColumn, sortDirection, searchTerm]);
 
   // Get paginated data
   const paginatedData = useMemo(() => {

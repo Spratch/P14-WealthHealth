@@ -39,6 +39,7 @@ export default function FormSection() {
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            autofocus
           />
           <FormField
             id="last-name"

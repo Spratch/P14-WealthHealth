@@ -5,13 +5,15 @@ export interface PaginationState {
   pageSize: number;
   sortColumn: string;
   sortDirection: "ascending" | "descending";
+  searchTerm: string;
 }
 
 const initialState: PaginationState = {
   currentPage: 1,
   pageSize: 10,
   sortColumn: "firstName",
-  sortDirection: "ascending"
+  sortDirection: "ascending",
+  searchTerm: ""
 };
 
 const paginationSlice = createSlice({
@@ -29,10 +31,15 @@ const paginationSlice = createSlice({
     setSortOrder: (state, action) => {
       state.sortColumn = action.payload.column;
       state.sortDirection = action.payload.direction;
+    },
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+      // Reset the current page to 1 when the search term changes
+      state.currentPage = 1;
     }
   }
 });
 
-export const { setCurrentPage, setPageSize, setSortOrder } =
+export const { setCurrentPage, setPageSize, setSortOrder, setSearchTerm } =
   paginationSlice.actions;
 export const paginationReducer = paginationSlice.reducer;

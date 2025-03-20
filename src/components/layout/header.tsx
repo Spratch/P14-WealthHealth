@@ -8,7 +8,7 @@ export default function Header() {
       <nav className="flex justify-between items-center gap-4 w-full max-w-7xl mx-auto">
         <Link
           to="/"
-          className="text-2xl text-lime-600 hover:text-lime-800 dark:text-lime-400 dark:hover:text-lime-300 transition-colors"
+          className="text-2xl text-lime-600 hover:text-lime-800 dark:text-lime-400 dark:hover:text-lime-300 transition-colors rounded focus"
         >
           HRnet
         </Link>
