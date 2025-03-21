@@ -68,7 +68,10 @@ export default function Employees() {
             />
             <SearchBox handleSearchChange={handleSearchChange} />
           </div>
-          <EmployeesTable columnsTitles={columnsTitles} />
+          <EmployeesTable
+            columnsTitles={columnsTitles}
+            label="Employees list"
+          />
         </section>
       )}
     </>

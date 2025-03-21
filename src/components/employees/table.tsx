@@ -18,9 +18,13 @@ import Pagination from "./pagination";
 
 type EmployeeTableProps = {
   columnsTitles: { id: string; title: string }[];
+  label: string;
 };
 
-export default function EmployeesTable({ columnsTitles }: EmployeeTableProps) {
+export default function EmployeesTable({
+  columnsTitles,
+  label
+}: EmployeeTableProps) {
   const {
     currentPageData,
     currentPage,
@@ -34,6 +38,7 @@ export default function EmployeesTable({ columnsTitles }: EmployeeTableProps) {
     <>
       <ResizableTableContainer className="w-full overflow-auto scroll-pt-8 relative rounded-lg bg-white text-neutral-600 dark:bg-black dark:text-neutral-50 max-h-full border border-neutral-200 dark:border-neutral-700">
         <Table
+          aria-label={label}
           sortDescriptor={sortDescriptor}
           onSortChange={handleSortChange}
           className="border-separate border-spacing-0"
