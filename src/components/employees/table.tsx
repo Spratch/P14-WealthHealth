@@ -5,6 +5,7 @@ import {
   CellProps,
   Column,
   ColumnProps,
+  ColumnResizer,
   Group,
   ResizableTableContainer,
   Row,
@@ -53,6 +54,7 @@ export default function EmployeesTable() {
               <EmployeeColumn
                 key={index}
                 isRowHeader={index === 0}
+                defaultWidth={column.id === "zipCode" ? 100 : 150}
                 allowsSorting
                 id={column.id}
               >
@@ -94,7 +96,7 @@ function EmployeeColumn(props: ColumnProps & { children: string }) {
   return (
     <Column
       {...props}
-      className="sticky top-0 p-0 border-0 border-b border-solid border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 font-bold text-left cursor-default first-rounded-tl-lg last-rounded-tr-lg whitespace-nowrap outline-hidden"
+      className="sticky top-0 p-0 border-0 border-b border-solid border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 font-light pt-0.5 tracking-wider uppercase text-xs text-left cursor-default first-rounded-tl-lg last-rounded-tr-lg whitespace-nowrap outline-hidden"
     >
       {({ allowsSorting, sortDirection }) => (
         <div className="flex items-center pl-4 py-1">
@@ -114,6 +116,7 @@ function EmployeeColumn(props: ColumnProps & { children: string }) {
               </span>
             )}
           </Group>
+          <ColumnResizer className="w-4.25 px-2 py-0.5 h-5 bg-clip-content bg-neutral-400 dark:bg-neutral-600 cursor-col-resize rounded-sm resizing:bg-neutral-800 dark:resizing:bg-neutral-200 resizing:w-4.5 focus-visible:ring-2 ring-neutral-600 dark:ring-neutral-400 ring-inset" />
         </div>
       )}
     </Column>

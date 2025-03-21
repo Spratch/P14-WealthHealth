@@ -11,8 +11,8 @@ export interface PaginationState {
 const initialState: PaginationState = {
   currentPage: 1,
   pageSize: 10,
-  sortColumn: "firstName",
-  sortDirection: "ascending",
+  sortColumn: "startDate",
+  sortDirection: "descending",
   searchTerm: ""
 };
 

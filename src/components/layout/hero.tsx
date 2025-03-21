@@ -6,10 +6,10 @@ type Props = {
 
 export default function Hero({ title, description, Icon }: Props) {
   return (
-    <section className="py-6 flex items-center gap-4 md:gap-6 w-full max-w-7xl mx-auto">
+    <section className="py-3 md:py-6 flex items-start md:items-center gap-4 md:gap-6 w-full max-w-7xl mx-auto">
       {/* Icon */}
       {Icon && (
-        <div className="p-2 border border-lime-600 dark:border-lime-400 rounded-full text-lime-600 dark:text-lime-400">
+        <div className="max-md:hidden max-md:mt-1 p-1.5 md:p-2 border border-lime-600 dark:border-lime-400 rounded-full text-lime-600 dark:text-lime-400">
           <Icon className="size-6 md:size-8" />
         </div>
       )}
@@ -21,7 +21,7 @@ export default function Hero({ title, description, Icon }: Props) {
         </h1>
         {description && (
           <p
-            className={`md:text-lg leading-tight text-neutral-500 dark:text-neutral-400`}
+            className={`md:text-lg leading-tight text-neutral-500 dark:text-neutral-400 text-balance`}
           >
             {description}
           </p>
