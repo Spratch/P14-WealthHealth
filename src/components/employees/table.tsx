@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Cell,
   CellProps,
@@ -18,7 +16,11 @@ import { ArrowUpIcon } from "@sanity/icons";
 import useTablePagination from "../../hooks/useTablePagination";
 import Pagination from "./pagination";
 
-export default function EmployeesTable() {
+type EmployeeTableProps = {
+  columnsTitles: { id: string; title: string }[];
+};
+
+export default function EmployeesTable({ columnsTitles }: EmployeeTableProps) {
   const {
     currentPageData,
     currentPage,
@@ -28,23 +30,10 @@ export default function EmployeesTable() {
     handleSortChange
   } = useTablePagination();
 
-  const columnsTitles = [
-    { id: "firstName", title: "First Name" },
-    { id: "lastName", title: "Last Name" },
-    { id: "dateOfBirth", title: "Date of Birth" },
-    { id: "startDate", title: "Start Date" },
-    { id: "street", title: "Street" },
-    { id: "city", title: "City" },
-    { id: "state", title: "State" },
-    { id: "zipCode", title: "Zip Code" },
-    { id: "department", title: "Department" }
-  ];
-
   return (
     <>
       <ResizableTableContainer className="w-full overflow-auto scroll-pt-8 relative rounded-lg bg-white text-neutral-600 dark:bg-black dark:text-neutral-50 max-h-full border border-neutral-200 dark:border-neutral-700">
         <Table
-          aria-label="Employees table"
           sortDescriptor={sortDescriptor}
           onSortChange={handleSortChange}
           className="border-separate border-spacing-0"
@@ -66,15 +55,11 @@ export default function EmployeesTable() {
             {currentPageData.map((employee) => {
               return (
                 <EmployeeRow key={employee.id}>
-                  <EmployeeCell>{employee.firstName}</EmployeeCell>
-                  <EmployeeCell>{employee.lastName}</EmployeeCell>
-                  <EmployeeCell>{employee.dateOfBirth}</EmployeeCell>
-                  <EmployeeCell>{employee.startDate}</EmployeeCell>
-                  <EmployeeCell>{employee.street}</EmployeeCell>
-                  <EmployeeCell>{employee.city}</EmployeeCell>
-                  <EmployeeCell>{employee.state}</EmployeeCell>
-                  <EmployeeCell>{employee.zipCode}</EmployeeCell>
-                  <EmployeeCell>{employee.department}</EmployeeCell>
+                  {columnsTitles.map((column, index) => (
+                    <EmployeeCell key={index}>
+                      {employee[column.id as keyof typeof employee]}
+                    </EmployeeCell>
+                  ))}
                 </EmployeeRow>
               );
             })}

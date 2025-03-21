@@ -17,6 +17,17 @@ export default function Employees() {
   const dispatch = useDispatch();
   const { totalItems, pageSize } = useTablePagination();
   const lengthOptions = ["10", "25", "50", "100"];
+  const columnsTitles = [
+    { id: "firstName", title: "First Name" },
+    { id: "lastName", title: "Last Name" },
+    { id: "dateOfBirth", title: "Date of Birth" },
+    { id: "startDate", title: "Start Date" },
+    { id: "street", title: "Street" },
+    { id: "city", title: "City" },
+    { id: "state", title: "State" },
+    { id: "zipCode", title: "Zip Code" },
+    { id: "department", title: "Department" }
+  ];
 
   const handlePageSizeChange = (value: Key | null) => {
     if (value !== null) {
@@ -57,7 +68,7 @@ export default function Employees() {
             />
             <SearchBox handleSearchChange={handleSearchChange} />
           </div>
-          <EmployeesTable />
+          <EmployeesTable columnsTitles={columnsTitles} />
         </section>
       )}
     </>
