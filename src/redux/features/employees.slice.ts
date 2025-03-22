@@ -25,7 +25,7 @@ export const fetchEmployees = createAsyncThunk<
   { rejectValue: string }
 >("employees/fetchEmployees", async (_, { rejectWithValue }) => {
   try {
-    const response = await fetch("/src/datas/MOCK_DATA.json");
+    const response = await fetch("/src/data/MOCK_DATA.json");
     if (!response.ok) {
       throw new Error("An error occurred while fetching employees");
     }

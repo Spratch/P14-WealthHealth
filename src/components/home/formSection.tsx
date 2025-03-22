@@ -1,7 +1,7 @@
 import FormField from "../ui/formField";
 import FormSelect from "../ui/formSelect";
-import { usStates } from "../../datas/us-states";
-import { companyDepartements } from "../../datas/company-departements";
+import { usStates } from "../../data/us-states";
+import { companyDepartements } from "../../data/company-departements";
 import FormDatePicker from "../ui/formDatePicker";
 import { Button, DialogTrigger, Form } from "react-aria-components";
 import { SuccessModal } from "./successModal";
