@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useMemo } from "react";
 import { Employee } from "../redux/features/employees.slice";
-import employees from "../datas/MOCK_DATA.json";
 import {
   setCurrentPage,
   setPageSize,
@@ -12,7 +11,7 @@ import { SortDescriptor } from "react-aria-components";
 
 export default function useTablePagination() {
   const dispatch = useDispatch();
-  const employeesState = useSelector((state: RootState) => state.employees);
+  const { employees } = useSelector((state: RootState) => state.employees);
   const pagination = useSelector((state: RootState) => state.pagination);
 
   const { currentPage, pageSize, sortColumn, sortDirection, searchTerm } =
@@ -20,16 +19,11 @@ export default function useTablePagination() {
 
   // Combine mocked data with employees from the state
   const processedData = useMemo(() => {
-    const employeesList: Employee[] = [
-      ...employeesState.employees,
-      ...employees
-    ];
-
     // Filter data
-    let filteredList = employeesList;
+    let filteredList = employees;
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      filteredList = employeesList.filter((employee) => {
+      filteredList = employees.filter((employee) => {
         return Object.values(employee).some((value) => {
           if (typeof value === "string") {
             return value.toLowerCase().includes(term);
@@ -52,7 +46,7 @@ export default function useTablePagination() {
     });
 
     return sortedList;
-  }, [employeesState.employees, sortColumn, sortDirection, searchTerm]);
+  }, [employees, sortColumn, sortDirection, searchTerm]);
 
   // Get paginated data
   const paginatedData = useMemo(() => {

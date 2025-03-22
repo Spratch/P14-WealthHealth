@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export type Employee = {
   id: string;
@@ -19,6 +19,29 @@ export interface EmployeesState {
   employees: Employee[];
 }
 
+export const fetchEmployees = createAsyncThunk<
+  Employee[],
+  void,
+  { rejectValue: string }
+>("employees/fetchEmployees", async (_, { rejectWithValue }) => {
+  try {
+    const response = await fetch("/src/datas/MOCK_DATA.json");
+    if (!response.ok) {
+      throw new Error("An error occurred while fetching employees");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    let message;
+    if (error instanceof Error) {
+      message = error.message;
+    } else {
+      message = "An error occurred while fetching employees";
+    }
+    return rejectWithValue(message);
+  }
+});
+
 const initialState: EmployeesState = {
   status: "idle",
   message: "",
@@ -34,6 +57,20 @@ export const employeesSlice = createSlice({
       state.status = "succeeded";
       state.message = "Employee added successfully";
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchEmployees.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchEmployees.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.employees = action.payload;
+      })
+      .addCase(fetchEmployees.rejected, (state, action) => {
+        state.status = "failed";
+        state.message = action.payload as string;
+      });
   }
 });
 

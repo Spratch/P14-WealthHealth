@@ -17,12 +17,14 @@ export default function Header() {
           to="/employees"
           text="View current employees"
           Icon={UsersIcon}
+          isNav
         />
         <Cta
           to="/"
           text="New employee"
           primary
           Icon={AddUserIcon}
+          isNav
         />
       </nav>
     </header>
