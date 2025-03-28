@@ -8,7 +8,7 @@ import {
 import Hero from "../../components/layout/hero";
 import { useDispatch, useSelector } from "react-redux";
 import EmptyList from "../../components/employees/empty";
-import EmployeesTable from "../../components/employees/table";
+import WHTable from "../../components/employees/table";
 import { Key } from "react-aria-components";
 import useTablePagination from "../../hooks/useTablePagination";
 import {
@@ -22,7 +22,7 @@ import { RootState } from "../../redux/store";
 export default function Employees() {
   const dispatch = useDispatch();
   const employeesState = useSelector((state: RootState) => state.employees);
-  const { totalItems, pageSize } = useTablePagination();
+  const { totalItems, pageSize } = useTablePagination(employeesState.employees);
   const lengthOptions = ["10", "25", "50", "100"];
   const columnsTitles = [
     { id: "firstName", title: "First Name" },
@@ -103,9 +103,10 @@ export default function Employees() {
             />
             <SearchBox handleSearchChange={handleSearchChange} />
           </div>
-          <EmployeesTable
+          <WHTable
             columnsTitles={columnsTitles}
             label="Employees list"
+            items={employeesState.employees}
           />
         </section>
       )}

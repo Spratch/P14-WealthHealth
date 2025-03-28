@@ -16,15 +16,13 @@ import { ArrowUpIcon } from "@sanity/icons";
 import useTablePagination from "../../hooks/useTablePagination";
 import Pagination from "./pagination";
 
-type EmployeeTableProps = {
+type WHTableProps = {
   columnsTitles: { id: string; title: string }[];
   label: string;
+  items: Record<string, string>[];
 };
 
-export default function EmployeesTable({
-  columnsTitles,
-  label
-}: EmployeeTableProps) {
+export default function WHTable({ columnsTitles, label, items }: WHTableProps) {
   const {
     currentPageData,
     currentPage,
@@ -32,7 +30,7 @@ export default function EmployeesTable({
     goToPage,
     sortDescriptor,
     handleSortChange
-  } = useTablePagination();
+  } = useTablePagination(items);
 
   return (
     <>
@@ -45,7 +43,7 @@ export default function EmployeesTable({
         >
           <TableHeader>
             {columnsTitles.map((column, index) => (
-              <EmployeeColumn
+              <WHColumn
                 key={index}
                 isRowHeader={index === 0}
                 defaultWidth={column.id === "zipCode" ? 100 : 150}
@@ -53,19 +51,17 @@ export default function EmployeesTable({
                 id={column.id}
               >
                 {column.title}
-              </EmployeeColumn>
+              </WHColumn>
             ))}
           </TableHeader>
           <TableBody>
-            {currentPageData.map((employee) => {
+            {currentPageData.map((item) => {
               return (
-                <EmployeeRow key={employee.id}>
+                <WHRow key={item.id}>
                   {columnsTitles.map((column, index) => (
-                    <EmployeeCell key={index}>
-                      {employee[column.id as keyof typeof employee]}
-                    </EmployeeCell>
+                    <WHCell key={index}>{item[column.id]}</WHCell>
                   ))}
-                </EmployeeRow>
+                </WHRow>
               );
             })}
           </TableBody>
@@ -82,7 +78,7 @@ export default function EmployeesTable({
   );
 }
 
-function EmployeeColumn(props: ColumnProps & { children: string }) {
+function WHColumn(props: ColumnProps & { children: string }) {
   return (
     <Column
       {...props}
@@ -113,7 +109,7 @@ function EmployeeColumn(props: ColumnProps & { children: string }) {
   );
 }
 
-function EmployeeRow<T extends object>(props: RowProps<T>) {
+function WHRow<T extends object>(props: RowProps<T>) {
   return (
     <Row
       {...props}
@@ -122,7 +118,7 @@ function EmployeeRow<T extends object>(props: RowProps<T>) {
   );
 }
 
-function EmployeeCell(props: CellProps) {
+function WHCell(props: CellProps) {
   return (
     <Cell
       {...props}

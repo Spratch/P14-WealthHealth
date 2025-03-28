@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useMemo } from "react";
-import { Employee } from "../redux/features/employees.slice";
 import {
   setCurrentPage,
   setPageSize,
@@ -9,22 +8,21 @@ import {
 } from "../redux/features/pagination.slice";
 import { SortDescriptor } from "react-aria-components";
 
-export default function useTablePagination() {
+export default function useTablePagination(items: Record<string, string>[]) {
   const dispatch = useDispatch();
-  const { employees } = useSelector((state: RootState) => state.employees);
   const pagination = useSelector((state: RootState) => state.pagination);
 
   const { currentPage, pageSize, sortColumn, sortDirection, searchTerm } =
     pagination;
 
-  // Combine mocked data with employees from the state
+  // Filter and sort data
   const processedData = useMemo(() => {
     // Filter data
-    let filteredList = employees;
+    let filteredList = items;
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      filteredList = employees.filter((employee) => {
-        return Object.values(employee).some((value) => {
+      filteredList = items.filter((item) => {
+        return Object.values(item).some((value) => {
           if (typeof value === "string") {
             return value.toLowerCase().includes(term);
           }
@@ -35,8 +33,8 @@ export default function useTablePagination() {
 
     // Sort data
     const sortedList = [...filteredList].sort((a, b) => {
-      const first = a[sortColumn as keyof Employee];
-      const second = b[sortColumn as keyof Employee];
+      const first = a[sortColumn];
+      const second = b[sortColumn];
 
       if (typeof first === "string" && typeof second === "string") {
         const result = first.localeCompare(second);
@@ -46,7 +44,7 @@ export default function useTablePagination() {
     });
 
     return sortedList;
-  }, [employees, sortColumn, sortDirection, searchTerm]);
+  }, [items, sortColumn, sortDirection, searchTerm]);
 
   // Get paginated data
   const paginatedData = useMemo(() => {
