@@ -6,23 +6,13 @@ import {
   UsersIcon
 } from "@sanity/icons";
 import Hero from "../../components/layout/hero";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import EmptyList from "../../components/employees/empty";
-import WHTable from "../../components/employees/table";
-import { Key } from "react-aria-components";
-import useTablePagination from "../../hooks/useTablePagination";
-import {
-  setPageSize,
-  setSearchTerm
-} from "../../redux/features/pagination.slice";
-import SearchBox from "../../components/ui/searchBox";
-import LengthSelect from "../../components/ui/lengthSelect";
 import { RootState } from "../../redux/store";
+import TableSection from "../../components/employees/tableSection";
 
 export default function Employees() {
-  const dispatch = useDispatch();
   const employeesState = useSelector((state: RootState) => state.employees);
-  const { totalItems, pageSize } = useTablePagination(employeesState.employees);
   const lengthOptions = ["10", "25", "50", "100"];
   const columnsTitles = [
     { id: "firstName", title: "First Name" },
@@ -35,16 +25,6 @@ export default function Employees() {
     { id: "zipCode", title: "Zip Code" },
     { id: "department", title: "Department" }
   ];
-
-  const handlePageSizeChange = (value: Key | null) => {
-    if (value !== null) {
-      dispatch(setPageSize(parseInt(value.toString(), 10)));
-    }
-  };
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchTerm(e.target.value));
-  };
 
   return (
     <>
@@ -93,22 +73,11 @@ export default function Employees() {
           }}
         />
       ) : (
-        <section className="flex-1 max-h-full min-h-0 flex flex-col items-start w-full max-w-7xl mx-auto py-5 gap-2 md:gap-5">
-          <div className="flex flex-row-reverse md:flex-row w-full flex-wrap justify-between md:items-end gap-2 md:gap-5">
-            <LengthSelect
-              options={lengthOptions}
-              totalItems={totalItems}
-              selectedKey={pageSize.toString()}
-              onSelectionChange={handlePageSizeChange}
-            />
-            <SearchBox handleSearchChange={handleSearchChange} />
-          </div>
-          <WHTable
-            columnsTitles={columnsTitles}
-            label="Employees list"
-            items={employeesState.employees}
-          />
-        </section>
+        <TableSection
+          items={employeesState.employees}
+          lengthOptions={lengthOptions}
+          columnsTitles={columnsTitles}
+        />
       )}
     </>
   );
