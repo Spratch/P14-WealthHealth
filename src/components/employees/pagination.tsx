@@ -32,7 +32,7 @@ export default function Pagination({
     const rightSiblingIndex = Math.min(currentPage + siblings, totalPages);
 
     // Display dots or not
-    const shouldDisplayLeftDots = leftSiblingIndex > 1 + siblings;
+    const shouldDisplayLeftDots = leftSiblingIndex >= 1 + siblings;
     const shouldDisplayRightDots =
       rightSiblingIndex < totalPages - siblings + 1;
 
