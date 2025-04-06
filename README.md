@@ -1,50 +1,109 @@
-# React + TypeScript + Vite
+# HRnet - Employee Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![React](https://img.shields.io/badge/React-v19.0.0-blue)](https://reactjs.org/)
+[![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-v2.5.1-purple)](https://redux-toolkit.js.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-v5.0.0-blue)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.1.2-38B2AC)](https://tailwindcss.com/)
+[![React Aria Components](https://img.shields.io/badge/React_Aria-v1.6.0-red)](https://react-spectrum.adobe.com/react-aria/index.html)
+[![WHTable](https://img.shields.io/badge/WHTable-v1.0.3-green)](https://www.npmjs.com/package/@spratch/whtable)
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+HRnet is an internal web application for employee management at WealthHealth. This modern refactoring uses React, TypeScript, and Redux Toolkit to deliver a smooth and fast user experience.
 
-## Expanding the ESLint configuration
+The application allows users to:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Add new employees to the database
+- View the list of existing employees
+- Sort and search for employees
+- Manage HR data in an intuitive and efficient way
 
-- Configure the top-level `parserOptions` property like this:
+![New employee form](docs/form.png)
+![Employees table](docs/table.png)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Features
+
+- **Employee Creation Form**: User-friendly interface (data validation coming soon)
+- **Interactive Employee Table**: Advanced sorting, pagination, and search
+- **Loading States**: Visual feedback while loading data
+- **Accessible Interface**: React Aria components for optimal accessibility
+- **Dark Mode**: Light/dark theme support
+
+## Technologies Used
+
+- **React**: Modern UI library for creating interfaces
+- **Redux Toolkit**: Global state management with asynchronous actions
+- **TypeScript**: Static typing for more robust code
+- **Tailwind CSS**: Utility-first CSS framework for consistent styling
+- **Vite**: Fast and optimized build tool
+- **React Router**: Navigation between pages
+- **React Aria Components**: Accessible and performant components
+
+## Installation
+
+Clone this repository and install dependencies with `npm install`
+
+## Usage
+
+### Development
+
+Launch the development server:
+
+```bash
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+The application will be available at `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Production
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+Build the application for production:
+
+```bash
+npm run build
 ```
+
+Preview the production version:
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```
+src/
+├── app/                # Main application pages
+│   ├── App.tsx         # Root application component
+│   ├── employees/      # Employee listing page
+│   └── home/           # Home page with form
+├── components/         # Reusable components
+│   ├── layout/         # Layout components
+│   ├── ui/             # UI components
+│   └── home/           # Home page specific components
+├── redux/              # Redux configuration and slices
+│   ├── features/       # Redux slices for features
+│   └── store.ts        # Redux store configuration
+├── datas/              # Static data
+└── utils/              # Utility functions
+public/                 # Mocks
+
+```
+
+## State Management
+
+The application uses Redux Toolkit for state management, with:
+
+- An `employees` slice to manage employee data
+- Data persistence via localStorage
+- Asynchronous actions with `createAsyncThunk` to fetch data
+
+## Responsive Design
+
+The interface is fully responsive and adapts to all devices, from mobile phones to large screens, with light/dark theme support.
+
+## License
+
+MIT
+
+Project created as part of the OpenClassrooms Front-End Developer training program.
