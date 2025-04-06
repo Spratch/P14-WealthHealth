@@ -12,14 +12,14 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
     "@sanity/icons": "^3.6.0",
-    "@spratch/whtable": "^1.0.1",
+    "@spratch/whtable": "^1.0.3",
     "@tailwindcss/vite": "^4.0.7",
     "react": "^19.0.0",
     "react-aria-components": "^1.6.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
     "react-router": "^7.2.0",
-    "tailwindcss": "^4.0.7",
+    "tailwindcss": "^4.1.2",
     "tailwindcss-react-aria-components": "^2.0.0",
     "uuid": "^11.1.0"
   },
