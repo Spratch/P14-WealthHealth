@@ -5,7 +5,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-v5.0.0-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.1.2-38B2AC)](https://tailwindcss.com/)
 [![React Aria Components](https://img.shields.io/badge/React_Aria-v1.6.0-red)](https://react-spectrum.adobe.com/react-aria/index.html)
-[![WHTable](https://img.shields.io/badge/WHTable-v1.0.3-green)](https://www.npmjs.com/package/@spratch/whtable)
+[![WHTable](https://img.shields.io/badge/WHTable-v1.0.4-green)](https://www.npmjs.com/package/@spratch/whtable)
 
 ## Description
 

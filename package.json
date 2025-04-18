@@ -12,7 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
     "@sanity/icons": "^3.6.0",
-    "@spratch/whtable": "^1.0.3",
+    "@spratch/whtable": "^1.0.4",
     "@tailwindcss/vite": "^4.0.7",
     "react": "^19.0.0",
     "react-aria-components": "^1.6.0",
